@@ -9,4 +9,7 @@ for row in soup.find_all("tr"):
 
     cells = row.find_all("td")
 
-    print([c.text for c in cells])
+    for c in cells:
+        if len(c.text)>0:
+            if c.text[0].isdigit():
+                print(c.text)
