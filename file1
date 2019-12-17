@@ -1,0 +1,12 @@
+import requests
+from bs4 import BeautifulSoup
+
+response = requests.get("http://www.weeia.p.lodz.pl/")
+
+soup = BeautifulSoup(response.text, 'html.parser')
+
+for row in soup.find_all("tr"):
+
+    cells = row.find_all("td")
+
+    print([c.text for c in cells])
