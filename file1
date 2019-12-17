@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+from ics import event
 
 response = requests.get("http://www.weeia.p.lodz.pl/")
 
@@ -10,6 +11,16 @@ for row in soup.find_all("tr"):
     cells = row.find_all("td")
 
     for c in cells:
-        if len(c.text)>0:
+        if len(c.text) > 0:
             if c.text[0].isdigit():
+                if len(c.text) > 1:
+                    if c.text[1].isdigit():
+                        if len(c.text) > 2:
+                            event.name = c.text[2:]
+                            event.begin = '2019-12-'+c.text[:2]+' 00:00:00'
+                            print(event)
+                    else:
+                        event.name = c.text[1:]
+                        event.begin = '2019-12-0'+c.text[:1]+' 00:00:00'
+                        print(event)
                 print(c.text)
